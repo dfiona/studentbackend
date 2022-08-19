@@ -1,19 +1,19 @@
 import { Router } from "express";
-import Lecturecontroller from "../controllers/Lecturecontroller";
-import Studentcontroller from "../controllers/studentcontroller";
+import Permissioncontroller from "../controllers/permissioncontroller";
+import Usercontroller from "../controllers/usercontroller";
+import Attendancecontroller from "../controllers/attendancecontroller";
 
 
 
 
 const route =Router();
-route.post("/student/create",Studentcontroller.registerStudent)
-route.post("/student/login",Studentcontroller.loginStudentController);
- route.post("/student/logout",Studentcontroller.logoutStudentController);
-route.post("/lecture/create",Lecturecontroller.addStudent);
-route.get("/lecture/getAllstudent",Lecturecontroller.getAllstudent);
-route.patch("/student/:id",Lecturecontroller.updateAttendance);
-route.post("/lecture/login",Lecturecontroller.loginLectureController)
-route.post("/lecture/create",Lecturecontroller.registerLecture)
+route.post("/user/create",Usercontroller.registerUser)
+route.post("/user/login",Usercontroller.loginUserController);
+ route.post("/user/logout",Usercontroller.logoutUserController);
+route.get("/Permission/getAllpermission",Permissioncontroller.getAllPermission);
+route.get("/user/getAllstudent",Usercontroller.getAllUser);
+route.patch("/attendance/:id",Attendancecontroller.updateAttendance);
+
 
 
 export default route;
