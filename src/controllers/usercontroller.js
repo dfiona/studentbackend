@@ -54,6 +54,7 @@ static async loginUserController(req,res){
 // end of login//
 
 
+// logout user
 static async logoutUserController(req,res){
     const student = await Userservices.logoutUser(req);
 
@@ -70,6 +71,7 @@ else{
         
     
 }
+// Add users
 static async addUser(req,res){
 
   const newUser = await Userservices.addUser(req)
@@ -85,9 +87,12 @@ static async addUser(req,res){
       data:newUser,
   });
 }
-  
-static async getAllUser(req,res){
-  const newUser = Userservices.getAllUser(req)
+  //ge all user
+
+
+  static getAllUser = async (req, res) => {
+ 
+  const newUser = await Userservices.getAllUser(req);
 
   if (!newUser){
       return res.status (400).json ({message:"failed to getAllstudent",
@@ -100,6 +105,28 @@ static async getAllUser(req,res){
   });
 }
 
+
+
+    //ge ONE  USER
+
+
+    static async getOneUser(req, res) {
+ 
+      const newUser = await Userservices.getOneUser(req);
+    
+      if (!newUser){
+          return res.status (400).json ({message:"failed to getOnestudent",
+          });
+      }
+    
+      return res.status(201).json ({
+          message:"success",
+          data:newUser,
+      });
+    }
+  
+
 }
+ 
 
 export default Usercontroller;

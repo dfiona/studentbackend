@@ -1,25 +1,65 @@
-import  express  from "express";
+import express from "express";
 import "dotenv/config";
 import bodyParser from "body-parser";
 import route from "./routes/index";
 import mongoose from "mongoose";
+import { reset } from "nodemon";
+import cors from "cors"
 
-const App = express();
-App.use(bodyParser.json());
-App.use("/", route);
+//import node from "@babel/register/lib/node";
 
+const nodemailer = require("nodemailer");
+const smtpTransport = require('nodemailer-smtp-transport');
+const app = express();
+app.use(cors());
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.json());
+app.use(bodyParser.json());
+app.get('/',(req,res) => {
+  reset.send('hello divine!')
+})
+app.post('/sendEmail',(req,res) =>{
+  let {email} = req.body;
+  console.log(email);
+  console.log(`email you have many email ${email}`);
+
+
+
+    
+  const mailerOption ={
+   from:'"the Express App" <fabykalifa@gmail.com>',
+    to: `${email}`,
+    subject:"sending email using nodeMailer",
+    text:"hey would you like to come"
+  };
+  transporter.sendMail(mailerOption, function(error,info){
+    if (error){
+      console.log("error"+error);
+      res.send("Email not send successful");
+    }
+    else{
+      console.log("Email send successfuly");
+    }
+  })
+
+  // const info = await transporter.sendMail(msg);
+  // console.log("message sent:%s", info.messageId);
+  // console.log("preview URL:%s",nodemailer.getTestMessageUrl(info));
+  // res.send("email.sent")
+})
+app.use("/", route);
 const database = process.env.DATABASE;
 mongoose
-.connect(database,{ useNewUrlParser:true,useUnifiedTopology:true,
+  .connect(database, { useNewURLParser: true, useUnifiedTopology: true, 
 })
-.then (() =>{
-    console.log("Database is well connected!");
-});
- 
-const port = process.env.PORT || 4040;
-App.listen (port,() =>{
-    console.log (`server is running on port ${port}`)
+  .then(() => {
+    console.log("Database is well connect!");
+  });
 
-}
-)
-export default App; 
+//configuration of server
+const port = process.env.PORT || 4040; 
+app.listen(port, () => {
+  console.log(`server is running on port ${port}`);
+});
+
+export default app;

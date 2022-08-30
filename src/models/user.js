@@ -6,22 +6,49 @@ const UserSchema = new mongoose.Schema(
 
     names: String,
 
-    email: { type: String, unique: true, required: true },
+    email: {
+           type: String,
+            unique: true,
+           required: true },
 
     password: String,
 
-    address: { state: String, city: String },
+    address: {
+       state: String,
+        city: String },
 
     phone: String,
 
-    attendance: String,
+    activity: {
+      type:String,
+enum:["Html","figma","typingmaster","backend","frontend"],
+default:"Html"
 
-    
+},
 
-    role: { type: String, enum: ["student", "lecture","admin"], default: "admin" },
+status: {
+  type:String,
+  enum:["present","absent","communicated"],
+  default:"present"
 
+   },
+   dateOn:{
+    dateAt:Date,
+           
+       },
+
+    role: {
+       type: String,
+        enum: ["student", "lecture","admin"],
+         default: "admin" },
+
+    createdBy:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Lecture",
+  },  
     isActive: { type: Boolean, default: true },
   },
+  
   { timestamps: true }
 );
 

@@ -1,29 +1,28 @@
 import mongoose from "mongoose";
 
-const permissionSchema = new mongoose.Schema(
+const PermissionSchema = new mongoose.Schema(
   {
     
 
-    names: String,
+    date:{
+      dateAt:Date,
+             
+         },
+    email: { type: String, 
+             unique: true, 
+             required: true },
 
-    email: { type: String, unique: true, required: true },
 
-    password: String,
+    role: 
+    { type: String,
+       enum: ["admin", "student"], 
+       default: "student" },
 
-    address : String,
-
-
-    role: { type: String, enum: ["lecture", "admin"], default: "admin" },
-
-    isActive: { type: Boolean, default: true },
+   
   },
   { timestamps: true }
 );
 
+const Permission= mongoose.model("Permission",PermissionSchema);
 
-
-const permission= mongoose.model("permission", permissionSchema);
-
-
-
-export default permission;
+export default Permission;
