@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 export default class TokenAuth{
 //function to generate
 static generateToken(data){
-    const token=jwt.sign(data,process.env.JWT_KEY,{expiresIn:"100000d"});
+    const token=jwt.sign(data,process.env.JWT_KEY,{expiresIn:"1d"});
     return token;
 }
 //decode token

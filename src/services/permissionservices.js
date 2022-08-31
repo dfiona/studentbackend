@@ -1,18 +1,32 @@
-import Lecturecontroller from "../controllers/permissioncontroller";
-import PermissionModel from "../models/permission";
+import Permissioncontroller from "../controllers/permissioncontroller";
+import modelPermission from "../models/permission";
+
+class Permissionservices {
+  static async PermissionCreate(req) {
+    const Permission= await modelPermission.create(req.body);
+    return Permission;
+  }
+//   // UPDATE Permission
+  
+   
+//    static async updateAllpermission(req){
+//     const Permission = await modelPermission.findByIdAndUpdate( req.params.id,req.body,{new:true});
+//     return Permission;
+// }
 
 
 
-class Permissionservices{
-
-
-static async getAllPermission(req){
-    const Permission= await PermissionModel.find(req.body);
+// get all permission
+  static async getAllPermission(req){
+    const Permission = await modelPermission.find(req.body);
     return Permission;
 }
 
-
-
+//delete permission
+static async deletepermission(req){
+    const Permission = modelPermission.deleteOne({_id: req.params.id});
+    return Permission;
+  }
+             
 }
-
 export default Permissionservices;
